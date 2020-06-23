@@ -1,0 +1,7 @@
+
+2020-06-22 16:02:57 Apache Commons Daemon procrun stdout initialized.
+2020-06-22 14:03:06.314+0000 INFO  ======== Neo4j 4.0.0 ========
+2020-06-22 14:03:06.330+0000 INFO  Starting...
+2020-06-22 14:03:35.982+0000 INFO  Bolt enabled on localhost:7687.
+2020-06-22 14:03:35.983+0000 INFO  Started.
+2020-06-22 14:03:38.538+0000 INFO  Remote interface available at http://localhost:7474/

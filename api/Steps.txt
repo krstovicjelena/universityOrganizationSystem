@@ -1,0 +1,29 @@
+Install kompoenanta u node za API:
+# npm i -g @nestjs/cli
+
+Generisanje aplikacije pomocu framework-a za Node.js veb aplikacije Nest.js:
+# nest new podaci
+
+Pitace nas za package manager. biramo npm
+Cekamo puno puno puno da zavrsi skidanje svih paketa i pravljenje projekta :)
+
+Uci u novo generisani projekat:
+# cd podaci
+
+Install dodatnih paketa za API:
+# npm i @nestjs/cli sync-mysql @nestjs/mongoose mongoose --save
+
+U src naseg API projekta podaci da kofigurisemo MySQL konekciju i port za API (8080):
+# code src/main.ts
+
+Treba nam novi servis koji ce obezbediti vezu ka bazi:
+# nest g service database
+
+Dodajemo kod za MySQL:
+> const mysql = require('sync-mysql');
+> cont con = new mysql({
+    host: 'localhost', user: 'root', password: '', database: 'nosql'
+});
+
+Pokrecemo API:
+# nest start

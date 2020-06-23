@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Studentska aplikacija</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body onload="draw()">
+
+    <script>
+
+      function draw(){
+        var config={
+          container_id:"prikaz",
+          server_url:"bolt://localhost:7687",
+          server_user:"neo4j",
+          server_password:"neo4j1",
+          labels:{},
+          relationships:{},
+          initial_cypher:"MATCH x=(:OJ)-[:PRIPADA]->(:VSU) RETURN x"
+
+           
+        }
+
+        var viz=new NeoVis.default(config);
+        viz.render();
+
+      }
+      
+      
+      
+      
+      
+      </script>
+		<div class="wrapper d-flex align-items-stretch">
+      <nav id="sidebar"> </nav>
+     
+		
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5">
+		<h1>Studentska aplikacija</h1>
+    <h2>
+     Graf
+    </h2>
+<div id="prikaz" ></div>
+        
+      </div>
+    </div>
+    
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.neo4jlabs.com/neovis.js/v1.2.1/neovis.js"></script>
+  </body>
+</html>

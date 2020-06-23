@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Studentska aplikacija</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+
+    
+		
+		<div class="wrapper d-flex align-items-stretch">
+      <nav id="sidebar"> </nav>
+      
+		
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5">
+		<h1>Studentska aplikacija</h1>
+    <h2>
+      Visokoškolska ustanova
+      <button class="btn btn-primary btn-sm pull-right float-right" onclick="showVSUAddModal();">Dodaj ustanovu</button>
+    </h2>
+    <input id="search_input" type="search" class="form-control" placeholder="Search">
+
+        <div class="card d-none" id="add-vsu">
+          <div class="card-body">
+            <h5 class="card-title">Dodaj ustanovu</h5>
+            <div class="card-text">
+              <div class="form">
+                <div class="form-group">
+                  <label for="add-naziv">Naziv</label>
+                  <input id="add-naziv" class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                  <label for="add-tip">Tip</label>
+                  <select id="add-tip" class="form-control">
+                    <option value="DH">društveno-humanističke nauke</option>
+                    <option value="MD">medicinske nauke</option>
+                    <option value="PM">prirodno-matematičke nauke</option>
+                    <option value="TT">tehničko-tehnološke nauke</option>
+                    <option value="UM">umetnost</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="add-drzava">Država</label>
+                  <select id="add-drzava" class="form-control">
+                    <option value="SRB">Srbija</option>
+                    <option value="BIH">Bosna i Hercegovina</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="add-datumOsnivanja">Datum osnivanja</label>
+                  <input id="add-datumOsnivanja" class="form-control" type="date" >
+                </div>
+
+                <div class="form-group">
+                  <label for="add-adresa">Adresa</label>
+                  <input id="add-adresa" class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                  <label for="add-tipVlasnistva">Tip vlasnistva</label>
+                  <select id="add-tipVlasnistva" class="form-control" >
+                    <option value="PR">Privatno</option>
+                    <option value="DR">Državano</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="add-www">Veb sajt</label>
+                  <input id="add-www" class="form-control" type="url" >
+                </div>
+
+                <div class="form-group">
+                  <label for="add-email">E-mail</label>
+                  <input id="add-email" class="form-control" type="email">
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="saveAddChanges();">Sačuvaj</button>
+            <button class="btn btn-secondary" onclick="closeAddVsu();">Zatvori</button>
+          </div>
+        </div>
+
+        <div class="card d-none" id="edit-vsu">
+          <div class="card-body">
+            <h5 class="card-title">Izmeni</h5>
+            <div class="card-text">
+              <div class="form">
+                <div class="form-group">
+                  <label for="naziv">Naziv</label>
+                  <input id="naziv" class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                  <label for="tip">Tip</label>
+                  <select id="tip" class="form-control" >
+                    <option value="DH">društveno-humanističke nauke</option>
+                    <option value="MD">medicinske nauke</option>
+                    <option value="PM">prirodno-matematičke nauke</option>
+                    <option value="TT">tehničko-tehnološke nauke</option>
+                    <option value="UM">umetnost</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="drzava">Država</label>
+                  <select id="drzava" class="form-control">
+                    <option value="SRB">Srbija</option>
+                    <option value="BIH">Bosna i Hercegovina</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="datumOsnivanja">Datum osnivanja</label>
+                  <input id="datumOsnivanja" class="form-control" type="date">
+                </div>
+
+                <div class="form-group">
+                  <label for="adresa">Adresa</label>
+                  <input id="adresa" class="form-control" type="text">
+                </div>
+
+                <div class="form-group">
+                  <label for="tipVlasnistva">Tip vlasnistva</label>
+                  <select id="tipVlasnistva" class="form-control">
+                    <option value="PR">Privatno</option>
+                    <option value="DR">Državano</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="www">Veb sajt</label>
+                  <input id="www" class="form-control" type="url">
+                </div>
+
+                <div class="form-group">
+                  <label for="email">E-mail</label>
+                  <input id="email" class="form-control" type="email">
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="saveEditChanges();">Sačuvaj</button>
+            <button class="btn btn-secondary" onclick="closeEditVsu();">Zatvori</button>
+          </div>
+        </div>
+
+        <table class="tabla table-sm table-condensed">
+          <thead>
+            <tr>
+              <th>Naziv</th>
+              <th>Tip</th>
+              <th>Država</th>
+              <th>Osnovana</th>
+              <th>Adresa</th>
+              <th>Vlasništvo</th>
+              <th>Web adresa</th>
+              <th>Opcije</th>
+            </tr>
+          </thead>
+          <tbody id="vsus-list"></tbody>
+        </table>
+
+        <script>
+          window.addEventListener('load', init);
+
+          let mesta = [];
+
+          function init() {
+            getVsus();
+            getMesta();
+          }
+
+          function getMesta() {
+            fetch('http://localhost:8080/mesta/')
+            .then(res => res.json())
+            .then(data => {
+              mesta = data;
+            });
+          }
+
+          function getVsus() {
+            showVSULoading();
+
+            fetch('http://localhost:8080/vsu')
+            .then(res => res.json())
+            .then(data => createDataRecords(data));
+          }
+
+          function initFillVSUForm(id) {
+            fetch('http://localhost:8080/vsu/' + id)
+            .then(res => res.json())
+            .then(data => fillVSUForm(data));
+          }
+
+          function showVSULoading() {
+            let tbody = document.getElementById('vsus-list');
+            tbody.innerHTML = '<tr><td>Loading...</td></tr>';
+          }
+
+          function closeEditVsu() {
+            document.getElementById('edit-vsu').classList.add('d-none');
+          }
+
+          function closeAddVsu() {
+            document.getElementById('add-vsu').classList.add('d-none');
+          }
+//vadjenje podataka iz tabele i prikaz
+          function createDataRecords(data) {
+            let tbody = document.getElementById('vsus-list');
+            tbody.innerHTML = '';
+
+            for (let vsu of data) {
+              tbody.innerHTML += `<tr id="vsu-${ vsu.id }" data-tip="${ vsu.tip }">
+                <td>${ vsu.naziv }</td>
+                <td>${ vsu.tip }</td>
+                <td>${ vsu.drzava }</td>
+                <td>${ vsu.datumOsnivanja.substring(0, 10) }</td>
+                <td>${ vsu.adresa }</td>
+                <td>${ vsu.tipVlasnistva }</td>
+                <td>${ vsu.www }</td>
+        
+                <td>
+                  <button onclick="deleteVSU(${ vsu.id });">
+                    Obriši
+                  </button>
+
+                  <button onclick="showVSUEditModal(${ vsu.id });">
+                    Izmeni
+                  </button>
+
+                  <button onclick="showVSUOrganizacioneJedinice(${ vsu.id });">
+                    Struktura
+                  </button>
+                  <button onclick="hideOj(${ vsu.id });">
+                    Zatvori
+                  </button>
+                </td>
+              </tr>
+              <tr class="d-none" id="vsu-organizacione-jedinice-${ vsu.id }"></tr>`;
+            }
+          }
+
+          //prikaz organizacionih jedinica
+
+          function showVSUOrganizacioneJedinice(id) {
+            let row = document.getElementById('vsu-organizacione-jedinice-' + id);
+
+
+            row.classList.remove('d-none');
+
+            row.innerHTML = '<td colspan="7">Loading...</td>';
+
+            fetch('http://localhost:8080/vsu/' + id + '/organizacione-jedinice/')
+            .then(res => res.json())
+            .then(data => {
+              if (data.length == 0) {
+                let string = `<td colspan="7">
+                                  <table class="table table-sm table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th>Naziv</th>
+                                        <th>Adresa</th>
+                                        <th>Mesto</th>
+                                        <th>
+                                          Opcije
+                                          <button onclick="showAddVSUUnit(${ id })">
+                                            Dodaj jedinicu
+                                          </button>
+                                         
+                                        </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>`;
+
+                  string += `
+                    <tr>
+                      <td colspan="4">Nema jedinica...
+                      </td>
+                    </tr>`;
+
+                string += `<tr class="d-none" id="vsu-oj-add-${ id }">
+                             <td><input id="vsu-oj-add-${ id }-naziv" type="text" placeholder="Naziv nove jedinice"></td>
+                             <td><input id="vsu-oj-add-${ id }-adresa" type="text" placeholder="Adresa nove jedinice"></td>
+                             <td>
+                                <select id="vsu-oj-add-${ id }-mesto">`
+                          
+                for (let mesto of mesta) {
+                  string += `<option value="${ mesto.NM_IDENTIFIKATOR }">${ mesto.NM_NAZIV }</option>`;
+                }
+
+                string += `</select>
+                             </td>
+                             <td>
+                                <button onclick="addVUSOJ(${id})" id="btn-vsuoj-add-${ id }">Dodaj</button>
+                             </td>
+                           </tr>`;
+
+                string += '</tbody></table></td>';
+
+                row.innerHTML = string;
+              } else {
+                let string = `<td colspan="7">
+                                  <table class="table table-sm table-hover">
+                                    <thead>
+                                      <tr>
+                                        <th>Naziv</th>
+                                        <th>Adresa</th>
+                                        <th>Mesto</th>
+                                        <th>
+                                          Opcije
+                                          <button onclick="showAddVSUUnit(${ id })">
+                                            Dodaj jedinicu
+                                          </button>
+                                          
+                                        </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>`;
+
+                for (let unit of data) {
+                  string += `
+                    <tr>
+                      <td>${ unit.OJ_NAZIV }</td>
+                      <td>${ unit.OJ_ADRESA }</td>
+                      <td>${ unit.NM_NAZIV }</td>
+                      <td>
+                        <button onclick="deleteVSUOJ(${ unit.OJ_IDENTIFIKATOR }, ${ id })">Obriši</button>
+                      </td>
+                    </tr>`;
+                }
+
+                string += `<tr class="d-none" id="vsu-oj-add-${ id }">
+                             <td><input id="vsu-oj-add-${ id }-naziv" type="text" placeholder="Unesite naziv nove jedinice"></td>
+                             <td><input id="vsu-oj-add-${ id }-adresa" type="text" placeholder="Unesite adresu nove jedinice"></td>
+                             <td>
+                                <select id="vsu-oj-add-${ id }-mesto">`
+                          
+                for (let mesto of mesta) {
+                  string += `<option value="${ mesto.NM_IDENTIFIKATOR }">${ mesto.NM_NAZIV }</option>`;
+                }
+
+                string += `</select>
+                             </td>
+                             <td>
+                                <button onclick="addVUSOJ(${id})" id="btn-vsuoj-add-${ id }">Dodaj jedinicu</button>
+                             </td>
+                           </tr>`;
+
+                string += '</tbody></table></td>';
+
+                row.innerHTML = string;
+              }
+            });
+          }
+
+         
+
+
+          function hideOj(id){
+            document.getElementById('vsu-organizacione-jedinice-' + id).classList.add('d-none');
+
+          }
+         
+          function deleteVSUOJ(vsuojId, id) {
+            if (confirm('Da li ste sigurni?')) {
+              fetch('http://localhost:8080/vsuoj/' + vsuojId + '/delete/')
+              .then(res => res.json())
+              .then(data => {
+                showVSUOrganizacioneJedinice(id);
+              });
+            }
+          }
+
+          function addVUSOJ(id) {
+            let naziv = document.getElementById('vsu-oj-add-' + id + '-naziv').value;
+            let adresa = document.getElementById('vsu-oj-add-' + id + '-adresa').value;
+            let mestoId = mesta[document.getElementById('vsu-oj-add-' + id + '-mesto').selectedIndex].NM_IDENTIFIKATOR;
+
+            let vsuRow = document.getElementById('vsu-' + id);
+            let vsuTip = vsuRow.dataset.tip.trim();
+
+            let data = {
+              TIP_UST: vsuTip,
+              VU_IDENTIFIKATOR: id,
+              OJ_NAZIV: naziv,
+              NM_IDENTIFIKATOR: mestoId,
+              OJ_ADRESA: adresa
+            };
+
+            document.getElementById('btn-vsuoj-add-' + id).setAttribute('disabled', 'disabled');
+            document.getElementById('btn-vsuoj-add-' + id).innerText = 'Adding...';
+            
+            fetch('http://localhost:8080/vsuoj/add/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+              showVSUOrganizacioneJedinice(id);
+            });
+          }
+
+          function showAddVSUUnit(id) {
+            document.getElementById('vsu-oj-add-' + id).classList.remove('d-none');
+            document.getElementById('vsu-oj-add-' + id + '-naziv').value = '';
+            document.getElementById('vsu-oj-add-' + id + '-adresa').value = '';
+            document.getElementById('vsu-oj-add-' + id + '-mesto').selectedIndex = 0;
+          }
+
+        
+
+          function deleteVSU(id) {
+            if (!confirm('Da li ste sigurni?')) {
+              return;
+            }
+
+            fetch('http://localhost:8080/vsu/' + id + '/delete')
+            .then(res => res.json())
+            .then(data => {
+              if (data.affectedRows === 0) {
+                alert('Ne postoji zapis sa tim ID brojem!');
+              }
+
+              getVsus();
+            });
+          }
+
+          function disableEditForm() {
+            let disableables = document.getElementById('edit-vsu').querySelectorAll('input, select, button');
+
+            for (let disableable of disableables) {
+              disableable.setAttribute('disabled', 'disabled');
+            }
+          }
+
+          function enableEditForm() {
+            let disableables = document.getElementById('edit-vsu').querySelectorAll('input, select, button');
+
+            for (let disableable of disableables) {
+              disableable.removeAttribute('disabled');
+            }
+          }
+
+          function disableAddForm() {
+            let disableables = document.getElementById('add-vsu').querySelectorAll('input, select, button');
+
+            for (let disableable of disableables) {
+              disableable.setAttribute('disabled', 'disabled');
+            }
+          }
+
+          function enableAddForm() {
+            let disableables = document.getElementById('add-vsu').querySelectorAll('input, select, button');
+
+            for (let disableable of disableables) {
+              disableable.removeAttribute('disabled');
+            }
+          }
+
+          function showVSUEditModal(id) {
+            document.getElementById('edit-vsu').classList.remove('d-none');
+            document.getElementById('edit-vsu').dataset.id = id;
+
+            disableEditForm();
+            initFillVSUForm(id);
+          }
+
+          function showVSUAddModal(id) {
+            document.getElementById('add-vsu').classList.remove('d-none');
+            resetAddVSUForm();
+            enableAddForm();
+          }
+
+          function resetAddVSUForm() {
+            document.getElementById('add-naziv').value = '';
+            document.getElementById('add-datumOsnivanja').value = '';
+            document.getElementById('add-adresa').value = '';
+            document.getElementById('add-www').value = '';
+            document.getElementById('add-email').value = '';
+            document.getElementById('add-tip').selectedIndex = 0;
+            document.getElementById('add-drzava').selectedIndex = 0;
+            document.getElementById('add-tipVlasnistva').selectedIndex = 0;
+          }
+
+          function setActiveOptionInSelected(select, value) {
+            select.selectedIndex = 0;
+            for (let i=0; i<select.children.length; i++) {
+              if (select.children[i].value == value) {
+                select.selectedIndex = i;
+                break;
+              }
+            }
+          }
+
+          function fillVSUForm(data) {
+            if (typeof data !== 'object') {
+              alert('Ne postoji takva VSU!');
+              closeEditVsu();
+              return;
+            }
+            
+            let vsu = data;
+
+            document.getElementById('naziv').value = vsu.naziv;
+            document.getElementById('datumOsnivanja').value = vsu.datumOsnivanja;
+            document.getElementById('adresa').value = vsu.adresa;
+            document.getElementById('www').value = vsu.www;
+            document.getElementById('email').value = vsu.email;
+
+            setActiveOptionInSelected(document.getElementById('tip'), vsu.tip);
+            setActiveOptionInSelected(document.getElementById('drzava'), vsu.drzava);
+            setActiveOptionInSelected(document.getElementById('tipVlasnistva'), vsu.tipVlasnistva);
+
+            enableEditForm();
+          }
+
+          function getSelectedOptionInSelect(select) {
+            return select.children[select.selectedIndex].value;
+          }
+
+          function saveEditChanges() {
+            let id = document.getElementById('edit-vsu').dataset.id;
+
+            disableEditForm();
+
+            let vsu = {
+              naziv: document.getElementById('naziv').value,
+              tip: getSelectedOptionInSelect(document.getElementById('tip')),
+              drzava: getSelectedOptionInSelect(document.getElementById('drzava')),
+              datumOsnivanja: document.getElementById('datumOsnivanja').value,
+              adresa: document.getElementById('adresa').value,
+              tipVlasnistva: getSelectedOptionInSelect(document.getElementById('tipVlasnistva')),
+              www: document.getElementById('www').value,
+              email: document.getElementById('email').value
+            }
+            
+            fetch('http://localhost:8080/vsu/' + id, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(vsu)
+            })
+            .then(res => res.json())
+            .then(data => {
+              closeEditVsu();
+              getVsus();
+            });
+          }
+
+
+          //cuvanje podataka nakon edita
+          function saveAddChanges() {
+          
+            let vsu = {
+                naziv: document.getElementById('add-naziv').value,
+                tip: getSelectedOptionInSelect(document.getElementById('add-tip')),
+                drzava: getSelectedOptionInSelect(document.getElementById('add-drzava')),
+                datumOsnivanja: document.getElementById('add-datumOsnivanja').value,
+                adresa: document.getElementById('add-adresa').value,
+                tipVlasnistva: getSelectedOptionInSelect(document.getElementById('add-tipVlasnistva')),
+                www: document.getElementById('add-www').value,
+                email: document.getElementById('add-email').value
+            };
+            
+            if(document.getElementById('add-naziv').value.length>0 &&
+            document.getElementById('add-datumOsnivanja').value.length>0&&
+            document.getElementById('add-adresa').value.length>0 &&
+            document.getElementById('add-www').value.length>0&&
+            document.getElementById('add-email').value.length>0
+            ){
+            disableAddForm();
+            
+            fetch('http://localhost:8080/vsu/add', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(vsu)
+            })
+            .then(res => res.json())
+            .then(data => {
+              closeAddVsu();
+              getVsus();
+            });}
+            else{
+              alert('Popunite sva polja!')
+            }
+          }
+          
+        </script>
+      </div>
+    </div>
+    
+    <script src="js/jquery.min.js"></script>
+  </script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      //pretraga
+      $('#search_input').on("change keyup ",(val)=>{
+            console.log($('#search_input').val());
+            let search = $('#search_input').val();
+          let url ='http://localhost:8080/vsu/search/'+search;
+          try{
+            fetch(url)
+            .then(res => res.json())
+            .then(data => {
+              console.log(data);
+              createDataRecords(data);
+            })
+          } catch(e){
+            createDataRecords([])
+          }
+
+          });
+    
+    </script>
+  </body>
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Studentska aplikacija</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+		
+		<div class="wrapper d-flex align-items-stretch">
+      <nav id="sidebar" >
+    	</nav>
+			
+
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5">
+        <h2>
+          Visokoškolske ustanove po tipu ustanove
+          <button class="btn btn-primary btn-sm pull-right float-right" onclick="showModal();">Dodaj novi dokument</button>
+        </h2>
+        <div id="izbor_create">
+            <label for="verzije_option">Država</label>
+            <select class="form-control" id="drzava_option">
+            </select>
+            <button onclick="createDocument();"> Kreiraj dokument</button>
+        </div>
+        <div >
+          <label for="verzije_option">Verzija</label>
+          <select class="form-control" id="verzije_option">
+            <option selected value="1">Izaberi...</option>
+          </select>
+        </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Oznaka</th>
+            <th scope="col">Tip ustanove</th>
+          </tr>
+        </thead>
+        <tbody id="prikaz_mongo">
+        </tbody>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Naziv ustanove</th>
+                <th scope="col">Tip vlasništva</th>
+               <th scope="col">Datum osnivanja</th> 
+               <th scope="col">Država</th>
+                <th scope="col">Adresa</th>
+                <th scope="col">Web adresa</th>
+                <th scope="col">Email</th>
+              </tr>
+            </thead>
+            <tbody id="prikaz_mongo2">
+            </tbody>
+          </table>
+      </table>
+    </div>
+
+
+      
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+    //verzije_option
+
+    window.addEventListener('load', ()=>{
+      $('#izbor_create').toggle();
+       loadVerzije();
+
+        fetch('http://localhost:8080/tu' , {
+        headers: {
+                'Content-Type': 'application/json'
+              },})
+            .then(res =>  res.json())
+            .then(data => {
+              data.forEach(element => {
+                $('#drzava_option').append(
+                  '<option value="'+element.naziv+'">'+element.naziv+'</option>'
+                )
+              });
+            }); 
+            //
+    }); // addEventListener
+
+    function loadVerzije(){
+      $('#verzije_option').html('');
+      fetch('http://localhost:8080/verzije3' , {
+        headers: {
+                'Content-Type': 'application/json'
+              },})
+            .then(res =>  res.json())
+            .then(data => {
+              $('#verzije_option').html();
+              data.forEach(element => {
+                var date = new Date(element);
+                var mesec=date.getMonth()+1;
+                $('#verzije_option').append(
+                  '<option value="'+element+'">Izveštaj od: '+date.getDate()+"."+mesec+"."+date.getFullYear()+". "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+'</option>'
+
+                )
+              });
+            });
+    }
+    // _______________________________________ SELECT OPTION
+    $('#verzije_option').on('change', function() {
+        if(this.value != 1){
+          let url = 'http://localhost:8080/read_mongo3/'+this.value;
+        fetch(url , {
+          headers: {
+                  'Content-Type': 'application/json'
+                },})
+              .then(res =>  res.json())
+              .then(data => {
+                $('#prikaz_mongo').html('');
+                data.forEach(data=>{
+                  $('#prikaz_mongo').append(`
+                      <tr>
+                        <td>`+data.id+`</td>
+                        <td>`+data.naziv+`</td>
+                      </tr>`)
+                  });
+                  $('#prikaz_mongo2').html('');
+                  // visoko skolska - ugnjezdena lista                  
+                  data[0].visoko_skolska_ustanova.forEach(element => {
+                    $('#prikaz_mongo2').append(`
+                      <tr>
+                        <td>`+element.naziv+`</td>
+                        <td>`+element.tip_vlasnistva+`</td>
+                        <td>`+element.datumOsnivanja.substring(0, 10)+`</td>
+                        <td>`+element.drzava_naziv+`</td>
+                        <td>`+element.adresa+`</td>
+                        <td>`+element.www+`</td>
+                        <td>`+element.email+`</td>
+                      </tr>`)
+                  });
+            })
+
+        }
+      }); // END;
+
+      function showModal(){
+        $('#izbor_create').toggle();
+      }
+
+      function createDocument(){
+        let selected = $('#drzava_option').find(":selected").text()
+        console.log(selected);
+        let url = 'http://localhost:8080/transform3/'+selected;
+          fetch(url , {
+        headers: {
+                'Content-Type': 'application/json'
+              },})
+            .then(res => null)
+            .then(data => {
+              loadVerzije();
+              console.log("created.")
+            }); 
+      }
+
+
+    
+    
+    
+    </script>
+  </body>
+</html>
