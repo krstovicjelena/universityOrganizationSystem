@@ -23,7 +23,7 @@
     "@nestjs/common": "^6.7.2",
     "@nestjs/core": "^6.7.2",
     "@nestjs/mongoose": "^6.2.1",
-    "@nestjs/platform-express": "^6.7.2",
+    "@nestjs/platform-express": "^9.2.1",
     "git": "^0.1.5",
     "mongoose": "^5.8.7",
     "neo4j": "^2.0.0-RC2",
